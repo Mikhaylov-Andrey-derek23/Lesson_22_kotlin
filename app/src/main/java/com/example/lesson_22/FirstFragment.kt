@@ -14,10 +14,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     var btnExecude: Button?  = null
     var btnExecudeMy: Button? = null
+    var btnExecudeHome: Button? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btnExecude = requireActivity().findViewById(R.id.btnExecude)
         btnExecudeMy = requireActivity().findViewById(R.id.btnExecudeMy)
+        btnExecudeHome = requireActivity().findViewById(R.id.btnExecudeHome)
         setOnCliclListeneres()
     }
 
@@ -35,6 +37,36 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             startRunnableMy()
             startFunctionThreadMy()
         }
+        btnExecudeHome?.setOnClickListener {
+            startThreadHome()
+            startRunnableHome()
+            startFunctionThreadHome()
+        }
+    }
+
+    private fun startThreadHome () {
+        val first = HomeFirstThread()
+        first.start()
+        val second = HomeFirstThread()
+        second.start()
+        val third = HomeFirstThread()
+        third.start()
+    }
+
+    private fun startRunnableHome(){
+        val first = Thread(HomeSecondThread())
+        first.start()
+        val second = Thread(HomeSecondThread())
+        second.start()
+        val third = Thread(HomeSecondThread())
+        third.start()
+    }
+
+    private fun startFunctionThreadHome() {
+        thread {
+            Log.e("HomeThread", "This is function  ${Thread.currentThread()}")
+        }
+
     }
 
     private fun startThreadMy () {
